@@ -1,15 +1,22 @@
-.PHONY: run run-cli clean setup
+.PHONY: run-cli clean setup
 
-ENV=openfold3-cuda13-pypi
-MANIFEST=/home/kenneyi/code/openfold-3/pixi.toml
-PIXI=/home/kenneyi/.pixi/bin/pixi
+USER=$(shell whoami)
+
+# Set these accordingly ----------------------
+# from nvidia-smi
+CUDA_MAJOR_VERSION=13
+# pixi binary path
+PIXI=/home/$(USER)/.pixi/bin/pixi
+# clone of an openfold3 repo, used to find manifest
+OPENFOLD3_REPO=/home/$(USER)/code/openfold-3
+#---------------------------------------------
+
+MANIFEST=$(OPENFOLD3_REPO)/pixi.toml
+ENV=openfold3-cuda$(CUDA_MAJOR_VERSION)-pypi
 
 clean:
 	-rm -rf output/
 	-rm -rf /tmp/of3-of-kenneyi/
-
-run:
-	$(PIXI) run -m $(MANIFEST) -e $(ENV) python run_inference.py
 
 run-cli:
 	pixi run -m $(MANIFEST) -e $(ENV) run_openfold predict \
