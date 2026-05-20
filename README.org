@@ -19,7 +19,7 @@ Execution logic is held in the =Makefile= in the root of the
 project. Since the openfold3 environment is fragile, we run each job
 through their isolated pixi environments.
 
-Set the following Makefile macros in for things to just work™.
+Set the following Makefile macros for things to just work™.
 
 - =CUDA_MAJOR_VERSION=
 - =PIXI=
